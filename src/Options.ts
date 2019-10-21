@@ -155,6 +155,18 @@ export interface IProps<FlatListItem = any, SectionListItem = any> {
   onClosed?: () => void;
 
   /**
+   * Callback function when the modal starts to minimize (in the case of
+   * `alwaysOpen` or `snapPoint`).
+   */
+  onMinimize?: () => void;
+
+  /**
+   * Callback function after the modal is minimized (in the case of
+   * `alwaysOpen` or `snapPoint`).
+   */
+  onMinimized?: () => void;
+
+  /**
    * onBackButtonPress is called when the user taps the hardware back button on
    * Android or the menu button on Apple TV. You can any function you want,
    * but you will have to close the modal by yourself.

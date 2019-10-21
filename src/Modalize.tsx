@@ -389,7 +389,7 @@ export default class Modalize<FlatListItem = any, SectionListItem = any>
       this.dragY.setValue(0);
 
       if (onMinimize) {
-        onMinimize()
+        onMinimize();
       }
 
       if (alwaysOpen) {
@@ -409,7 +409,7 @@ export default class Modalize<FlatListItem = any, SectionListItem = any>
         useNativeDriver,
       }).start(() => {
         if (onMinimized) {
-          onMinimized()
+          onMinimized();
         }
       });
     }
