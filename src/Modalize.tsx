@@ -388,7 +388,7 @@ export default class Modalize<FlatListItem = any, SectionListItem = any>
       this.translateY.flattenOffset();
       this.dragY.setValue(0);
 
-      let willMinimize = destSnapPoint === this.snapEnd
+      const willMinimize = destSnapPoint === this.snapEnd;
 
       if (willMinimize && onMinimize) {
         onMinimize();
