@@ -398,7 +398,11 @@ export default class Modalize<FlatListItem = any, SectionListItem = any>
           duration: timing.duration,
           easing: Easing.ease,
           useNativeDriver,
-        }).start();
+        }).start(() => {
+          if (onMinimized) {
+            onMinimized();
+          }
+        });
       }
 
       Animated.spring(this.translateY, {
@@ -408,7 +412,7 @@ export default class Modalize<FlatListItem = any, SectionListItem = any>
         toValue: destSnapPoint,
         useNativeDriver,
       }).start(() => {
-        if (onMinimized) {
+        if (onMinimized && !alwaysOpen) {
           onMinimized();
         }
       });
