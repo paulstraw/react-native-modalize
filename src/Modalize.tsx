@@ -388,7 +388,9 @@ export default class Modalize<FlatListItem = any, SectionListItem = any>
       this.translateY.flattenOffset();
       this.dragY.setValue(0);
 
-      if (onMinimize) {
+      let willMinimize = destSnapPoint === this.snapEnd
+
+      if (willMinimize && onMinimize) {
         onMinimize();
       }
 
@@ -399,7 +401,7 @@ export default class Modalize<FlatListItem = any, SectionListItem = any>
           easing: Easing.ease,
           useNativeDriver,
         }).start(() => {
-          if (onMinimized) {
+          if (willMinimize && onMinimized) {
             onMinimized();
           }
         });
@@ -412,7 +414,7 @@ export default class Modalize<FlatListItem = any, SectionListItem = any>
         toValue: destSnapPoint,
         useNativeDriver,
       }).start(() => {
-        if (onMinimized && !alwaysOpen) {
+        if (willMinimize && onMinimized && !alwaysOpen) {
           onMinimized();
         }
       });
