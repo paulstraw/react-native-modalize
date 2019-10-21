@@ -366,7 +366,7 @@ export default class Modalize<FlatListItem = any, SectionListItem = any>
 
             if (snap === this.snapEnd) {
               if (alwaysOpen) {
-                willMinimize = true
+                willMinimize = true;
               } else {
                 this.willCloseModalize = true;
                 this.close();
