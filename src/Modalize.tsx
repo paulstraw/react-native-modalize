@@ -337,7 +337,7 @@ export default class Modalize<FlatListItem = any, SectionListItem = any>
   }
 
   private onHandleChildren = ({ nativeEvent }: PanGestureHandlerStateChangeEvent): void => {
-    const { snapPoint, useNativeDriver, adjustToContentHeight, alwaysOpen, closeAnimationConfig } = this.props;
+    const { snapPoint, useNativeDriver, adjustToContentHeight, alwaysOpen, closeAnimationConfig, onMinimize, onMinimized } = this.props;
     const { timing } = closeAnimationConfig!;
     const { lastSnap, contentHeight, modalHeight, overlay } = this.state;
     const { velocityY, translationY } = nativeEvent;
@@ -388,6 +388,10 @@ export default class Modalize<FlatListItem = any, SectionListItem = any>
       this.translateY.flattenOffset();
       this.dragY.setValue(0);
 
+      if (onMinimize) {
+        onMinimize()
+      }
+
       if (alwaysOpen) {
         Animated.timing(overlay, {
           toValue: Number(destSnapPoint <= 0),
@@ -403,7 +407,11 @@ export default class Modalize<FlatListItem = any, SectionListItem = any>
         velocity: velocityY,
         toValue: destSnapPoint,
         useNativeDriver,
-      }).start();
+      }).start(() => {
+        if (onMinimized) {
+          onMinimized()
+        }
+      });
     }
   }
 
