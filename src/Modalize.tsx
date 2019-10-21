@@ -347,6 +347,7 @@ export default class Modalize<FlatListItem = any, SectionListItem = any>
     if (nativeEvent.oldState === State.ACTIVE) {
       const toValue = translationY - this.beginScrollYValue;
       let destSnapPoint = 0;
+      let willMinimize = false;
 
       if (snapPoint || alwaysOpen) {
         const dragToss = 0.05;
@@ -363,9 +364,13 @@ export default class Modalize<FlatListItem = any, SectionListItem = any>
               destSnapPoint = modalHeight - alwaysOpen;
             }
 
-            if (snap === this.snapEnd && !alwaysOpen) {
-              this.willCloseModalize = true;
-              this.close();
+            if (snap === this.snapEnd) {
+              if (alwaysOpen) {
+                willMinimize = true
+              } else {
+                this.willCloseModalize = true;
+                this.close();
+              }
             }
           }
         });
@@ -387,8 +392,6 @@ export default class Modalize<FlatListItem = any, SectionListItem = any>
       this.translateY.setValue(toValue);
       this.translateY.flattenOffset();
       this.dragY.setValue(0);
-
-      const willMinimize = destSnapPoint === this.snapEnd;
 
       if (willMinimize && onMinimize) {
         onMinimize();
